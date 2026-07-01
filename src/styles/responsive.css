@@ -1,0 +1,46 @@
+@media (max-width:1024px){
+.sidebar{
+width:220px;
+}
+
+.main{
+padding:20px;
+}
+}
+
+@media (max-width:768px){
+
+.container{
+flex-direction:column;
+}
+
+.sidebar{
+width:100%;
+min-height:auto;
+}
+
+.main{
+width:100%;
+padding:15px;
+}
+
+.cards{
+grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:480px){
+
+.sidebar h2{
+font-size:22px;
+}
+
+.logout{
+font-size:14px;
+}
+
+.main h1{
+font-size:28px;
+}
+}
