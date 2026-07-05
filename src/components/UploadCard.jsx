@@ -1,8 +1,37 @@
 import { FaFileUpload } from "react-icons/fa";
 
 function UploadCard() {
+
+  const handleFileChange = async (event) => {
+    console.log("UPLOAD INPUT CLICKED");
+
+    const file = event.target.files[0];
+    console.log("SELECTED FILE:", file);
+
+    // ❗ safety check
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await fetch("http://127.0.0.1:8000/upload-csv", {
+        method: "POST",
+        body: formData,
+      });
+
+      // response handle
+      const data = await res.json();
+      console.log("BACKEND RESPONSE:", data);
+
+    } catch (error) {
+      console.error("UPLOAD FAILED:", error);
+    }
+  };
+
   return (
     <div className="card upload-card h-100">
+
       <h3>Upload CSV File</h3>
 
       <p className="text-muted">
@@ -23,15 +52,16 @@ function UploadCard() {
           or click below to browse
         </p>
 
-        <input
-          className="form-control my-3"
-          type="file"
-          accept=".csv"
-        />
-
-        <button className="btn btn-primary w-100">
+        <label className="btn btn-primary w-100">
           Choose CSV File
-        </button>
+
+          <input
+            type="file"
+            accept=".csv"
+            hidden
+            onChange={handleFileChange}
+          />
+        </label>
 
       </div>
     </div>

@@ -1,11 +1,19 @@
-import {
-  FaPlay,
-  FaPause,
-  FaStop,
-  FaRedo,
-} from "react-icons/fa";
+import { FaPlay, FaPause, FaStop, FaRedo } from "react-icons/fa";
+import { makeCall } from "../api/callApi";
 
 function Control() {
+
+  const handleStart = async () => {
+    console.log("START BUTTON CLICKED");
+    try {
+      const result = await makeCall("917524856296"); // Test number
+      alert("Call Started!\n" + JSON.stringify(result));
+    } catch (error) {
+      console.error(error);
+      alert("Call Failed");
+    }
+  };
+
   return (
     <div className="card control-card h-100">
 
@@ -17,7 +25,10 @@ function Control() {
 
       <div className="control-buttons">
 
-        <button className="btn btn-success">
+        <button
+          className="btn btn-success"
+          onClick={handleStart}
+        >
           <FaPlay /> Start
         </button>
 
