@@ -14,7 +14,7 @@ function Control({ contacts }) {
   const handleStart = async () => {
     if (calling) return;
 
-    // ✅ Yahan check karo ki contacts prop mein data aa raha hai ya nahi
+   
     if (!contacts || contacts.length === 0) {
       alert("No contacts found! Please upload a CSV first.");
       return;
@@ -23,7 +23,7 @@ function Control({ contacts }) {
     console.log("STARTING WITH CONTACTS:", contacts);
 
     try {
-      // ✅ Ab ye tumhara sahi prop wala data bhej raha hai
+    
       const result = await startBulkCalling({ contacts: contacts });
       console.log("BACKEND RESPONSE:", result);
 

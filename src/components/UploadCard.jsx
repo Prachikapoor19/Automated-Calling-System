@@ -22,13 +22,11 @@ function UploadCard({ setNumbers }) {
       setUploaded(true);
 
       if (data.contacts) {
-        // ✅ Ye Dashboard ko data bhejega
-        setNumbers(data.contacts); 
         
-        // ✅ Ye UI pe list dikhayega
+        setNumbers(data.contacts); 
+       
         setNumbersList(data.contacts.map(c => c.phone)); 
         
-        // ✅ LocalStorage mein save taaki Control component utha sake
         localStorage.setItem("campaignContacts", JSON.stringify(data.contacts)); 
       }
 
