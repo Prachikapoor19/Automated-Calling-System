@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import {
   FaThLarge,
   FaPhone,
@@ -6,6 +7,7 @@ import {
   FaChartBar,
   FaCog,
   FaSignOutAlt,
+  FaRupeeSign,
 } from "react-icons/fa";
 
 function Sidebar() {
@@ -16,9 +18,25 @@ function Sidebar() {
 
       <ul className="menu">
 
-        <li className="active">
-          <FaThLarge /> Dashboard
-        </li>
+        <li>
+          <NavLink to="/">
+           <FaThLarge /> Dashboard
+          </NavLink>
+       </li>
+
+       <li>
+          <NavLink to="/dialer">
+           <FaPhone /> Dialer
+          </NavLink>
+       </li>
+
+       <li>
+         <NavLink to="/costing">
+          <FaRupeeSign /> Costing
+         </NavLink>
+       </li>
+
+      
 
         <li>
           <FaPhone /> Call Logs

@@ -1,4 +1,4 @@
-import Sidebar from "../components/Sidebar";
+import { useState } from "react";
 import UploadCard from "../components/UploadCard";
 import CallingQueue from "../components/CallingQueue";
 import Control from "../components/Control";
@@ -11,57 +11,50 @@ import "../styles/dashboard.css";
 import "../styles/responsive.css";
 
 function Dashboard() {
+  // ✅ Dashboard hi hai wo bridge jo dono components ko joda hai
+  const [numbers, setNumbers] = useState([]);
+
   return (
-    <div className="dashboard d-flex">
+    <>
+      <h2 className="fw-bold">AI Calling Dashboard</h2>
+      <p className="text-muted">Manage your automated calling campaigns</p>
 
-      <Sidebar />
-
-      <div className="main container-fluid p-4">
-
-        <h2 className="fw-bold">AI Calling Dashboard</h2>
-        <p className="text-muted">
-          Manage your automated calling campaigns
-        </p>
-
-        <div className="row g-4">
-
-          <div className="col-lg-8">
-            <UploadCard />
-          </div>
-
-          <div className="col-lg-4">
-            <CallingQueue />
-          </div>
-
-          <div className="col-12">
-            <Control />
-          </div>
-
-          <div className="col-lg-6">
-            <LiveStatus />
-          </div>
-
-          <div className="col-lg-6">
-            <Statistics />
-          </div>
-
-          <div className="col-lg-6">
-            <RecentActivity />
-          </div>
-
-          <div className="col-lg-6">
-            <CallLogs />
-          </div>
-
-          <div className="col-12">
-            <FooterCards />
-          </div>
-
+      <div className="row g-4">
+        <div className="col-lg-8">
+          {/* ✅ setNumbers pass kiya taki UploadCard data yahan bhej sake */}
+          <UploadCard setNumbers={setNumbers} />
         </div>
 
-      </div>
+        <div className="col-lg-4">
+          <CallingQueue />
+        </div>
 
-    </div>
+        <div className="col-12">
+          {/* ✅ numbers pass kiya taki Control button usse use kar sake */}
+          <Control contacts={numbers} />
+        </div>
+
+        <div className="col-lg-6">
+          <LiveStatus />
+        </div>
+
+        <div className="col-lg-6">
+          <Statistics />
+        </div>
+
+        <div className="col-lg-6">
+          <RecentActivity />
+        </div>
+
+        <div className="col-lg-6">
+          <CallLogs />
+        </div>
+
+        <div className="col-12">
+          <FooterCards />
+        </div>
+      </div>
+    </>
   );
 }
 

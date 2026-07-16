@@ -48,6 +48,28 @@ background:#4338ca;
 background:#6366f1;
 }
 
+/* Sidebar NavLink Styling */
+
+.sidebar .menu li a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    width:100%;
+    color:white;
+    text-decoration:none;
+    font-weight:500;
+}
+
+.sidebar .menu li a:hover{
+    color:white;
+    text-decoration:none;
+}
+
+.sidebar .menu li a.active{
+    color:white;
+    text-decoration:none;
+}
+
 .logout{
 margin-top:auto;
 width:100%;
@@ -430,4 +452,23 @@ border-bottom:1px solid #eee;
 
 .calllogs tr:hover{
 background:#f8f9ff;
+}
+
+.control-buttons button {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.control-buttons button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.control-buttons button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.control-buttons button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }

@@ -1,40 +1,83 @@
+import { useState } from "react";
+import { FaPlay, FaPause, FaStop, FaRedo } from "react-icons/fa";
 import {
-  FaPlay,
-  FaPause,
-  FaStop,
-  FaRedo,
-} from "react-icons/fa";
+  startBulkCalling,
+  pauseBulkCalling,
+  resumeBulkCalling,
+  stopBulkCalling,
+} from "../api/callApi";
 
-function Control() {
+function Control({ contacts }) {
+  const [calling, setCalling] = useState(false);
+  const [paused, setPaused] = useState(false);
+
+  const handleStart = async () => {
+    if (calling) return;
+
+    // ✅ Yahan check karo ki contacts prop mein data aa raha hai ya nahi
+    if (!contacts || contacts.length === 0) {
+      alert("No contacts found! Please upload a CSV first.");
+      return;
+    }
+
+    console.log("STARTING WITH CONTACTS:", contacts);
+
+    try {
+      // ✅ Ab ye tumhara sahi prop wala data bhej raha hai
+      const result = await startBulkCalling({ contacts: contacts });
+      console.log("BACKEND RESPONSE:", result);
+
+      setCalling(true);
+      setPaused(false);
+      alert("Bulk Calling Started");
+    } catch (error) {
+      console.error("CALL FAILED:", error);
+      alert("Bulk Calling Failed");
+    }
+  };
+
+  const handlePause = async () => {
+    try {
+      await pauseBulkCalling();
+      setPaused(true);
+      alert("Bulk Calling Paused");
+    } catch (error) { alert("Pause Failed"); }
+  };
+
+  const handleResume = async () => {
+    try {
+      await resumeBulkCalling();
+      setPaused(false);
+      alert("Bulk Calling Resumed");
+    } catch (error) { alert("Resume Failed"); }
+  };
+
+  const handleStop = async () => {
+    try {
+      await stopBulkCalling();
+      setCalling(false);
+      setPaused(false);
+      alert("Bulk Calling Stopped");
+    } catch (error) { alert("Stop Failed"); }
+  };
+
   return (
     <div className="card control-card h-100">
-
       <h3>Call Controls</h3>
-
-      <p className="text-muted">
-        Control the automated calling process.
-      </p>
-
       <div className="control-buttons">
-
-        <button className="btn btn-success">
-          <FaPlay /> Start
+        <button className="btn btn-success" onClick={handleStart} disabled={calling}>
+          <FaPlay className="me-2" /> Start
         </button>
-
-        <button className="btn btn-warning">
-          <FaPause /> Pause
+        <button className="btn btn-warning" onClick={handlePause} disabled={!calling || paused}>
+          <FaPause className="me-2" /> Pause
         </button>
-
-        <button className="btn btn-info text-white">
-          <FaRedo /> Resume
+        <button className="btn btn-info text-white" onClick={handleResume} disabled={!paused}>
+          <FaRedo className="me-2" /> Resume
         </button>
-
-        <button className="btn btn-danger">
-          <FaStop /> Stop
+        <button className="btn btn-danger" onClick={handleStop} disabled={!calling}>
+          <FaStop className="me-2" /> Stop
         </button>
-
       </div>
-
     </div>
   );
 }
